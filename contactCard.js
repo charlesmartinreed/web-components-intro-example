@@ -60,6 +60,8 @@ class ContactCard extends HTMLElement {
     // call the parent class' constructor
     super();
 
+    this.showInfo = true;
+
     // 2. Create SHADOW DOM to encapsulate styles
     this.attachShadow({ mode: "open" });
 
@@ -72,6 +74,32 @@ class ContactCard extends HTMLElement {
     )}`;
 
     this.shadowRoot.querySelector("img").src = this.getAttribute("avatar");
+  }
+
+  toggleInfo() {
+    const userInfo = this.shadowRoot.querySelector(".info");
+    const toggleBtn = this.shadowRoot.getElementById("btn-toggle-info");
+
+    this.showInfo = !this.showInfo;
+
+    userInfo.style.display = this.showInfo ? "block" : "none";
+
+    toggleBtn.innerText = this.showInfo ? "Hide Info" : "Show Info";
+  }
+
+  // BONUS: Animations with lifecycle methods
+  // connectedCallback is triggered each time the template element is rendered
+  connectedCallback() {
+    //   you can also fetch remote/API data here... or the constructor, if you'd like
+    this.shadowRoot
+      .getElementById("btn-toggle-info")
+      .addEventListener("click", () => this.toggleInfo());
+  }
+
+  //   triggered when the element is removed from the DOM
+  disconnectedCallback() {
+    //   remove the event listener
+    this.shadowRoot.getElementById("btn-toggle-info").removeEventListener();
   }
 }
 
