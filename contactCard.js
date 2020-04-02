@@ -7,7 +7,15 @@ template.innerHTML = `
         }
     </style>
     <div class="contact-card">
-        <h3></h3>
+            <img />
+        <div>
+            <h3></h3>
+            <div class="info">
+                <p>EMAIL</p>
+                <p>PHONE</p>
+            </div>
+            <button id="btn-toggle-info">Hide Info</button>
+        </div>
     </div>
 `;
 
@@ -27,6 +35,8 @@ class ContactCard extends HTMLElement {
     this.shadowRoot.querySelector(
       "h3"
     ).innerText = `Contact card for ${this.getAttribute("user_name")}`;
+
+    this.shadowRoot.querySelector("img").src = this.getAttribute("avatar");
   }
 }
 
